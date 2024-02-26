@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Comparador de Protocolos</title>
+</head>
+
+<body class="bg-light">
+
+    <div class="p-4 bg-secondary"></div>
+
+    <div class="container mt-5 text-center">
+        <div class="text-center m-5">
+            <h2 class="">Comparador de Protocolos</h2>
+            <p>
+                <a class="link-secondary link-offset-2 link-underline link-underline-opacity-0"
+                    href="./index.html"><strong>→ </strong>Removedor de Protocolos</a>
+            </p>
+        </div>
+
+
+
+
+        <div class="container text-center">
+
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-2">
+                    <h3>1ª Lista</h3>
+                    <textarea id="lista01" cols="9" rows="10" style="resize: none;" class="form-control"></textarea>
+                </div>
+
+                <div class="col col-lg-2">
+                    <h3>2ª Lista</h3>
+                    <textarea id="lista02" cols="9" rows="10" style="resize: none;" class="form-control"></textarea>
+                </div>
+
+                <div class="col col-lg-2">
+                    <h3>Diferença(s)</h3>
+                    <textarea id="mostrar" cols="9" rows="10" style="resize: none;" class="form-control"
+                        disabled></textarea>
+                </div>
+            </div>
+            <button onclick="Comparar()" class="btn btn-primary mt-4 btn-mb">Comparar Protocolos</button>
+        </div>
+
+
+        <!-- Local onde é localizado a diferença  -->
+        <script>
+            function Comparar() {
+                var primeiro = document.getElementById('lista01').value.split('\n')
+                var segundo = document.getElementById('lista02').value.split('\n')
+
+                var diferencaPrimeiroParaSegundo = primeiro.filter(function (item) {
+                    return !segundo.includes(item);
+                });
+
+                var diferencaSegundoParaPrimeiro = segundo.filter(function (item) {
+                    return !primeiro.includes(item);
+                });
+
+                var todasDiferencas = diferencaPrimeiroParaSegundo.concat(diferencaSegundoParaPrimeiro);
+
+                if (todasDiferencas.length == 0) {
+                    document.getElementById('mostrar').value = "Não há diferença(s)."
+                }
+                else {
+                    document.getElementById('mostrar').value = todasDiferencas.join('\n')
+                }
+            }
+        </script>
+
+        <!-- Bootstrap’s  -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+            </script>
+</body>
+
+</html>
